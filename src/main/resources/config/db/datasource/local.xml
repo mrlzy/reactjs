@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	    xmlns:jpa="http://www.springframework.org/schema/data/jpa"
+	   xmlns:context="http://www.springframework.org/schema/context"
+	   xmlns:mvc="http://www.springframework.org/schema/mvc"
+        xmlns:tx="http://www.springframework.org/schema/tx"
+
+	xsi:schemaLocation="http://www.springframework.org/schema/mvc 
+	                    http://www.springframework.org/schema/mvc/spring-mvc.xsd
+	                    http://www.springframework.org/schema/tx 
+	                    http://www.springframework.org/schema/tx/spring-tx.xsd
+		                http://www.springframework.org/schema/beans 
+		                http://www.springframework.org/schema/beans/spring-beans.xsd
+		                http://www.springframework.org/schema/context 
+		                http://www.springframework.org/schema/context/spring-context.xsd
+		                http://www.springframework.org/schema/data/jpa
+		                http://www.springframework.org/schema/data/jpa/spring-jpa.xsd"    >
+ 
+     
+
+	<bean id="localSource" class="com.alibaba.druid.pool.DruidDataSource" init-method="init" destroy-method="close">
+		<property name="driverClassName" value="${db.local.driverClassName}"/>
+		<property name="url" value="${db.local.url}" />
+		<property name="username" value="${db.local.username}" />
+		<property name="password" value="${db.local.password}" />
+		<!-- 配置初始化大小、最小、最大 -->
+		<property name="initialSize" value="${db.local.initialSize}" />
+		<property name="minIdle" value="${db.local.minIdle}" />
+		<property name="maxActive" value="${db.local.maxActive}" />
+		<!-- 配置获取连接等待超时的时间 -->
+		<property name="maxWait" value="${db.local.maxWait}" />
+		<!-- 配置间隔多久才进行一次检测，检测需要关闭的空闲连接，单位是毫秒 -->
+		<property name="timeBetweenEvictionRunsMillis" value="${db.local.timeBetweenEvictionRunsMillis}" />
+		<!-- 配置一个连接在池中最小生存的时间，单位是毫秒 -->
+		<property name="minEvictableIdleTimeMillis" value="${db.local.minEvictableIdleTimeMillis}" />
+
+		<property name="validationQuery" value="SELECT 'x' from dual" />
+		<property name="testWhileIdle" value="true" />
+		<property name="testOnBorrow" value="false" />
+		<property name="testOnReturn" value="false" />
+		<!-- 打开PSCache，并且指定每个连接上PSCache的大小 -->
+		<!--<property name="poolPreparedStatements" value="${db.local.poolPreparedStatements}" />
+		<property name="maxPoolPreparedStatementPerConnectionSize" value="${db.local.maxPoolPreparedStatementPerConnectionSize}" />-->
+	</bean>
+
+	<bean id="localManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
+		<!-- 指定数据源 -->
+		<property name="dataSource" ref="localSource"/>
+		<!-- 指定Jpa持久化实现厂商类,这里以Hibernate为例 -->
+		<property name="jpaVendorAdapter" >
+		        <bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter" />
+	     </property>
+		<!-- 指定Entity实体类包路径 -->
+		<property name="packagesToScan" >
+			<array>
+				<value>com.mrlzy.shiro.entity</value>
+			</array>
+		</property>
+		<!-- 指定JPA属性；如Hibernate中指定是否显示SQL的是否显示、方言等 -->
+		<property name="jpaProperties">
+			<props>
+				<prop key="hibernate.dialect">org.hibernate.dialect.Oracle10gDialect</prop>
+				<prop key="hibernate.ejb.naming_strategy">org.hibernate.cfg.ImprovedNamingStrategy</prop>
+				<prop key="hibernate.cache.provider_class">org.hibernate.cache.NoCacheProvider</prop>
+				<prop key="hibernate.show_sql">true</prop>
+				<prop key="hibernate.format_sql">true</prop>
+				<prop key="hibernate.hbm2ddl.auto">update</prop>
+			</props>
+		</property>
+	</bean>
+
+
+
+
+
+     <bean id="localManager" class="org.springframework.orm.jpa.JpaTransactionManager">
+	        <property name="entityManagerFactory" ref="localManagerFactory"/>
+     </bean>
+
+
+	 <tx:annotation-driven  mode="aspectj" transaction-manager="localManager"/>
+
+
+
+	<jpa:repositories base-package="com.mrlzy.shiro.dao.local.jpa"
+					  entity-manager-factory-ref="localManagerFactory"
+					  transaction-manager-ref="localManager" repository-impl-postfix="Impl"/>
+
+	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="configLocation" value="classpath:/config/db/datasource/config-mybatis.xml" />
+		<property name="mapperLocations" value="classpath:/config/db/mapper/local/*.xml"/>
+		<property name="dataSource" ref="localSource" />
+	</bean>
+
+	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+		<property name="basePackage" value="com.mrlzy.shiro.dao.local.mapper" />
+		<property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"></property>
+	</bean>
+
+	
+
+</beans>

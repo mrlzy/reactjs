@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	    xmlns:jpa="http://www.springframework.org/schema/data/jpa"
+	   xmlns:context="http://www.springframework.org/schema/context"
+	   xmlns:mvc="http://www.springframework.org/schema/mvc"
+        xmlns:tx="http://www.springframework.org/schema/tx"
+
+	xsi:schemaLocation="http://www.springframework.org/schema/mvc 
+	                    http://www.springframework.org/schema/mvc/spring-mvc.xsd
+	                    http://www.springframework.org/schema/tx 
+	                    http://www.springframework.org/schema/tx/spring-tx.xsd
+		                http://www.springframework.org/schema/beans 
+		                http://www.springframework.org/schema/beans/spring-beans.xsd
+		                http://www.springframework.org/schema/context 
+		                http://www.springframework.org/schema/context/spring-context.xsd
+		                http://www.springframework.org/schema/data/jpa
+		                http://www.springframework.org/schema/data/jpa/spring-jpa.xsd"    >
+ 
+     
+  <bean id="propertyConfigurer" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+		<property name="locations">
+			<list>
+				 <value>classpath:jdbc.properties</value>
+			<!-- 	<value>/WEB-INF/classes/jdbc.properties</value>  -->
+			</list>
+		</property>
+	</bean>
+	<!--
+         如何多数据源:
+         1.模仿local.xml创建另一种种数据源
+         2.在代码中使用 @Transactional("xxx"),xxx为事务id
+         3.事务与事务关系:例 事务方法A中调用另一事务方法B
+                 参考Spring事务隔离级别
+                 如果A与B用的是不同数据源...A方法和B方法必须在不同类中，否则Spring事务隔离级别会失效
+     -->
+	<import resource="classpath:/config/db/datasource/local.xml" />
+	<!--<import resource="classpath:/config/db/datasource/remote.xml" />-->
+
+	<context:component-scan base-package="com.mrlzy.shiro.service" />
+
+
+</beans>

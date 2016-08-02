@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:util="http://www.springframework.org/schema/util"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="
+       http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd">
+
+
+
+
+    <!-- Realm实现 -->
+    <bean id="userLoginRealm" class="com.mrlzy.shiro.realm.UserLoginRealm"></bean>
+
+
+
+    <!-- 会话Cookie模板 -->
+    <bean id="sessionIdCookie" class="org.apache.shiro.web.servlet.SimpleCookie">
+        <constructor-arg value="sid"/>
+        <property name="httpOnly" value="true"/>
+        <property name="maxAge" value="-1"/>
+    </bean>
+
+    <bean id="rememberMeCookie" class="org.apache.shiro.web.servlet.SimpleCookie">
+        <constructor-arg value="rememberMe"/>
+        <property name="httpOnly" value="true"/>
+        <property name="maxAge" value="2592000"/><!-- 30天 -->
+    </bean>
+
+    <!-- rememberMe管理器 -->
+    <bean id="rememberMeManager" class="org.apache.shiro.web.mgt.CookieRememberMeManager">
+        <!-- rememberMe cookie加密的密钥 建议每个项目都不一样 默认AES算法 密钥长度（128 256 512 位）-->
+        <property name="cipherKey" value="#{T(org.apache.shiro.codec.Base64).decode('4AvVhmFLUs0KTA3Kprsdag==')}"/>
+        <property name="cookie" ref="rememberMeCookie"/>
+    </bean>
+
+
+
+    <!-- 安全管理器 -->
+    <bean id="securityManager" class="org.apache.shiro.web.mgt.DefaultWebSecurityManager">
+        <property name="realm" ref="userLoginRealm"/>
+        <property name="rememberMeManager" ref="rememberMeManager"/>
+    </bean>
+
+    <!-- 相当于调用SecurityUtils.setSecurityManager(securityManager) -->
+    <bean class="org.springframework.beans.factory.config.MethodInvokingFactoryBean">
+        <property name="staticMethod" value="org.apache.shiro.SecurityUtils.setSecurityManager"/>
+        <property name="arguments" ref="securityManager"/>
+    </bean>
+
+
+    <bean id="formAuthenticationFilter" class="com.mrlzy.shiro.filter.FormAuthenticationFilter">
+        <property name="usernameParam" value="username"/>
+        <property name="passwordParam" value="password"/>
+        <property name="loginUrl" value="/login"/>
+    </bean>
+
+    <bean id="validCodeAuthenticationFilter" class="com.mrlzy.shiro.filter.ValidCodeAuthenticationFilter">
+        <property name="loginUrl" value="/login"/>
+    </bean>
+
+    <bean id="userManageFilter" class="com.mrlzy.shiro.filter.UserManageFilter">
+        <property name="loginUrl" value="/login"/>
+    </bean>
+
+    <!-- Shiro的Web过滤器 -->
+   <bean id="shiroFilter" class="org.apache.shiro.spring.web.ShiroFilterFactoryBean">
+        <property name="securityManager" ref="securityManager"/>
+        <property name="loginUrl" value="/login"/>
+        <property name="unauthorizedUrl" value="/unauthorized"/>
+       <property name="successUrl" value="/"/>
+       <property name="filters">
+           <util:map>
+               <entry key="authc" value-ref="formAuthenticationFilter"/>
+               <entry key="validCode" value-ref="validCodeAuthenticationFilter"/>
+               <entry key="userManage" value-ref="userManageFilter"/>
+
+           </util:map>
+       </property>
+       <property name="filterChainDefinitions">
+            <value>
+                /logout=logout
+                /assets/**=anon
+                /image=anon
+                /login=validCode,authc
+                /**=user,userManage
+            </value>
+        </property>
+    </bean>
+
+    <!-- Shiro生命周期处理器-->
+  <bean id="lifecycleBeanPostProcessor" class="org.apache.shiro.spring.LifecycleBeanPostProcessor"/>
+
+</beans>
