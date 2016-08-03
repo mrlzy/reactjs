@@ -1,4 +1,4 @@
-package com.mrlzy.shiro.test;
+package com.mrlzy.shiro.test.base;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;

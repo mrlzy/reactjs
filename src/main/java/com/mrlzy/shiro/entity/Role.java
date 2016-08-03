@@ -49,11 +49,11 @@ public class Role implements Serializable {
             inverseJoinColumns = { @JoinColumn(name = "perm_id", referencedColumnName = "perm_id") })
     private Set<Permission> perms=new HashSet<Permission>();
 
-    @ManyToMany(cascade = CascadeType.PERSIST,fetch = FetchType.LAZY)
+    @ManyToMany(cascade = {CascadeType.PERSIST},fetch = FetchType.LAZY)
     @JoinTable(name = "sys_role_menu",
             joinColumns = { @JoinColumn(name = "role_id", referencedColumnName = "role_id") },
             inverseJoinColumns = { @JoinColumn(name = "menu_id", referencedColumnName = "menu_id") })
-    private Set<Menu>  menus =new HashSet<>();
+    private Set<Menu>  menus =new HashSet<Menu>();
 
 
     private  String remark;

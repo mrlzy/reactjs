@@ -42,6 +42,8 @@ public class Menu implements Serializable {
     @JsonIgnore
     private Set<Menu> menus=new HashSet<Menu>();
 
+    @ManyToMany(mappedBy = "menus")
+    private Set<Role> roles=new HashSet<Role>();
 
 
 
@@ -153,5 +155,11 @@ public class Menu implements Serializable {
         this.url = url;
     }
 
+    public Set<Role> getRoles() {
+        return roles;
+    }
 
+    public void setRoles(Set<Role> roles) {
+        this.roles = roles;
+    }
 }
