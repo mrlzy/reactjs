@@ -1,7 +1,7 @@
 package com.mrlzy.shiro.session;
 
 
-import com.mrlzy.app.Constants;
+import com.mrlzy.shiro.app.Constants;
 import com.mrlzy.shiro.entity.User;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.session.Session;

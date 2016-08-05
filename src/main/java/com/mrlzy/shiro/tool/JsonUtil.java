@@ -7,6 +7,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.core.JsonGenerationException;
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -23,9 +24,9 @@ public class JsonUtil {
 
 	static {
 		      objectMapper.setDateFormat(defaultDateFormat);
+		      objectMapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
 	}
 
-	
 	
 	public static String obj2JsonWithExption(Object obj) throws JsonProcessingException {
 		   String v="";

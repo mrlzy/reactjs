@@ -2,7 +2,6 @@ package com.mrlzy.shiro.realm;
 
 
 
-import com.mrlzy.app.Constants;
 import com.mrlzy.shiro.dao.local.jpa.RoleJpa;
 import com.mrlzy.shiro.dao.local.jpa.UserJpa;
 import com.mrlzy.shiro.entity.Menu;
@@ -12,18 +11,14 @@ import com.mrlzy.shiro.entity.User;
 import com.mrlzy.shiro.session.ShiroSessionUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.*;
 import org.apache.shiro.authz.AuthorizationInfo;
 import org.apache.shiro.authz.SimpleAuthorizationInfo;
 import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
-import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.*;
-
-import static org.apache.shiro.web.filter.mgt.DefaultFilter.perms;
 
 public class UserLoginRealm  extends AuthorizingRealm {
 

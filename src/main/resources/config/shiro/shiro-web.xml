@@ -81,6 +81,7 @@
             <value>
                 /logout=logout
                 /assets/**=anon
+                /weixin/**=anon
                 /image=anon
                 /login=validCode,authc
                 /**=user,userManage
