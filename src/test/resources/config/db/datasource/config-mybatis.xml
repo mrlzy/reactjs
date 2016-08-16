@@ -45,6 +45,6 @@
 
 
 	<!--<mappers>
-		<mapper resource="config/db/mapper/UserRemoteMapper.xml" />
+		<mapper resource="client/db/mapper/UserRemoteMapper.xml" />
 	</mappers>-->
 </configuration>  

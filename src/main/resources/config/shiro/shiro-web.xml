@@ -55,6 +55,20 @@
         <property name="loginUrl" value="/login"/>
     </bean>
 
+    <bean id="weixinFormAuthenticationFilter" class="com.mrlzy.shiro.filter.FormAuthenticationFilter">
+        <property name="usernameParam" value="username"/>
+        <property name="passwordParam" value="code"/>
+        <property name="loginUrl" value="/weixin/login"/>
+    </bean>
+
+    <bean id="weixinUserClientFilter" class="com.mrlzy.shiro.filter.WeiXinUserManageFilter">
+        <property name="loginUrl" value="/weixin/login"/>
+    </bean>
+
+    <bean id="weixinUserManageFilter" class="com.mrlzy.shiro.filter.UserManageFilter">
+        <property name="loginUrl" value="/weixin/login"/>
+    </bean>
+
     <bean id="validCodeAuthenticationFilter" class="com.mrlzy.shiro.filter.ValidCodeAuthenticationFilter">
         <property name="loginUrl" value="/login"/>
     </bean>
@@ -62,6 +76,7 @@
     <bean id="userManageFilter" class="com.mrlzy.shiro.filter.UserManageFilter">
         <property name="loginUrl" value="/login"/>
     </bean>
+
 
     <!-- Shiro的Web过滤器 -->
    <bean id="shiroFilter" class="org.apache.shiro.spring.web.ShiroFilterFactoryBean">
@@ -71,17 +86,23 @@
        <property name="successUrl" value="/"/>
        <property name="filters">
            <util:map>
+               <entry key="wx_authc" value-ref="weixinFormAuthenticationFilter"/>
+               <entry key="wx_user" value-ref="weixinUserManageFilter"/>
+               <entry key="wx_client" value-ref="weixinUserClientFilter"/>
                <entry key="authc" value-ref="formAuthenticationFilter"/>
                <entry key="validCode" value-ref="validCodeAuthenticationFilter"/>
                <entry key="userManage" value-ref="userManageFilter"/>
-
            </util:map>
        </property>
        <property name="filterChainDefinitions">
             <value>
                 /logout=logout
                 /assets/**=anon
-                /weixin/**=anon
+                /weixin/author=anon
+                /weixin/error=anon
+                /weixin/selectCode=anon
+                /weixin/login=wx_authc
+                /weixin/**=wx_user,wx_client
                 /image=anon
                 /login=validCode,authc
                 /**=user,userManage

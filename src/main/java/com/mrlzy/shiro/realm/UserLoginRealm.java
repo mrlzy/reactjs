@@ -47,8 +47,15 @@ public class UserLoginRealm  extends AuthorizingRealm {
             throw new LockedAccountException("帐号锁定"); //帐号锁定
         }
 
-        if(!user.validPassWd(password)) {
-            throw new IncorrectCredentialsException("密码错误"); //帐号锁定
+       String telCode= ShiroSessionUtils.getUserTelValiCode();
+        if(user.hasWeiXinRole()&&telCode!=null&&telCode.length()>0){
+             if(!telCode.equals(password)){
+                 throw new IncorrectCredentialsException("验证码错误,请重新获取"); //帐号锁定
+             }
+        }else{
+            if(!user.validPassWd(password)) {
+                throw new IncorrectCredentialsException("密码错误"); //帐号锁定
+            }
         }
         ShiroSessionUtils.setCurrUser(user);
         return   new SimpleAuthenticationInfo(username, password, getName());

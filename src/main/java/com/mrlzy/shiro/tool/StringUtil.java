@@ -5,13 +5,31 @@ import org.apache.shiro.crypto.RandomNumberGenerator;
 import org.apache.shiro.crypto.SecureRandomNumberGenerator;
 
 import java.util.UUID;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class StringUtil {
 
+    //----------------------正则表达式-------------------//
 
+     public static  boolean testReg(String reg,String source){
+         Pattern pat = Pattern.compile(reg);
+         Matcher mat  =pat.matcher(source);
+         return mat.matches();
+     }
+
+    public static void main(String[] args) {
+        System.out.println(testReg("[a-zA-Z0-9]{1,128}","a321$11ee"));
+    }
+
+
+
+
+    //----------------------正则表达式-------------------//
+
+
+    //-------------------------随机数--------------------------//
     private static  String  strTable="0123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnpqrstuvwxyz";
-
-
 
     public static char  getRandomCharInTable(){
         return getRandomCharInTable(strTable);
@@ -56,6 +74,7 @@ public class StringUtil {
     }
 
 
+    //-------------------------随机数结束--------------------------//
 
 
 

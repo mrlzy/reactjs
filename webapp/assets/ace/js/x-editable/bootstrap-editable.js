@@ -731,7 +731,7 @@ Editableform is linked with one of input types, e.g. 'text', 'select' etc.
         },
 
         /*
-        exclude complex objects from $.data() before pass to config
+        exclude complex objects from $.data() before pass to client
         */
         getConfigData: function($element) {
             var data = {};
@@ -2537,7 +2537,7 @@ To create your own input you can inherit from this class.
         //for internal use only
         scope: null,
         
-        //need to re-declare showbuttons here to get it's value from common config (passed only options existing in defaults)
+        //need to re-declare showbuttons here to get it's value from common client (passed only options existing in defaults)
         showbuttons: true 
     };
     
@@ -3722,7 +3722,7 @@ $(function(){
             }
         } 
 
-        //overriding objects in config (as by default jQuery extend() is not recursive)
+        //overriding objects in client (as by default jQuery extend() is not recursive)
         this.options.select2 = $.extend({}, Constructor.defaults.select2, options.select2);
 
         //detect whether it is multi-valued
@@ -4487,10 +4487,10 @@ $(function(){
             this.options.viewformat = this.options.format;
         }        
         
-        //try parse combodate config defined as json string in data-combodate
+        //try parse combodate client defined as json string in data-combodate
         options.combodate = $.fn.editableutils.tryParseJson(options.combodate, true);
 
-        //overriding combodate config (as by default jQuery extend() is not recursive)
+        //overriding combodate client (as by default jQuery extend() is not recursive)
         this.options.combodate = $.extend({}, Constructor.defaults.combodate, options.combodate, {
             format: this.options.format,
             template: this.options.template
@@ -4975,10 +4975,10 @@ $(function(){
                 this.options.viewformat = this.options.format;
             }
             
-            //try parse datetimepicker config defined as json string in data-datetimepicker
+            //try parse datetimepicker client defined as json string in data-datetimepicker
             options.datetimepicker = $.fn.editableutils.tryParseJson(options.datetimepicker, true);
 
-            //overriding datetimepicker config (as by default jQuery extend() is not recursive)
+            //overriding datetimepicker client (as by default jQuery extend() is not recursive)
             //since 1.4 datetimepicker internally uses viewformat instead of format. Format is for submit only
             this.options.datetimepicker = $.extend({}, defaults.datetimepicker, options.datetimepicker, {
                 format: this.options.viewformat
@@ -5237,7 +5237,7 @@ Automatically shown in inline mode.
         **/         
         inputclass: 'input-medium',
         
-        /* datetimepicker config */
+        /* datetimepicker client */
         datetimepicker:{
             todayHighlight: false,
             autoclose: true

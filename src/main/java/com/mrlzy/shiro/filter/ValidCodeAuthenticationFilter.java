@@ -1,6 +1,8 @@
 package com.mrlzy.shiro.filter;
 
 
+import com.mrlzy.shiro.app.Constants;
+import com.mrlzy.shiro.session.ShiroSessionUtils;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.web.filter.AccessControlFilter;
 import org.apache.shiro.web.util.WebUtils;
@@ -12,10 +14,8 @@ import javax.servlet.http.HttpSession;
 
 public class ValidCodeAuthenticationFilter extends AccessControlFilter {
 
-    public static final String DEFAULT_ERROR_KEY_ATTRIBUTE_MSG = "error";
-    public static final String DEFAULT_VALIDCODE_ATTRIBUTE = "validCode";
-    private String failureMsgAttribute = DEFAULT_ERROR_KEY_ATTRIBUTE_MSG;
-    private String validCodeAttribute = DEFAULT_VALIDCODE_ATTRIBUTE;
+    private String failureMsgAttribute = Constants.DEFAULT_ERROR_KEY_ATTRIBUTE_MSG;
+    private String validCodeAttribute = Constants.DEFAULT_VALIDCODE_ATTRIBUTE;
 
 
 
@@ -36,8 +36,7 @@ public class ValidCodeAuthenticationFilter extends AccessControlFilter {
         if(pvaliCode==null) {
               return true;
         }
-        String svaliCode= (String)session.getAttribute(validCodeAttribute);
-        System.out.println(svaliCode);
+        String svaliCode= ShiroSessionUtils.getUserValiCode();
 
         if(svaliCode==null) {
             return false;

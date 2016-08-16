@@ -1,4 +1,4 @@
-<%@ page contentType="image/jpeg" import="java.awt.*,java.awt.image.*,java.util.*,javax.imageio.*,com.mrlzy.shiro.tool.StringUtil"  pageEncoding="utf-8"%>
+<%@ page contentType="image/jpeg" import="java.awt.*,java.awt.image.*,java.util.*,javax.imageio.*,com.mrlzy.shiro.tool.StringUtil,com.mrlzy.shiro.session.ShiroSessionUtils"  pageEncoding="utf-8"%>
 <%   
 System.setProperty( "java.awt.headless ",   "true ");
 response.setHeader("P3P","CP=\"CURa ADMa DEVa PSAo PSDo OUR BUS UNI PUR INT DEM STA PRE COM NAV OTC NOI DSP COR\"");     
@@ -80,7 +80,8 @@ response.setHeader("P3P","CP=\"CURa ADMa DEVa PSAo PSDo OUR BUS UNI PUR INT DEM 
     //System.out.println("111132");
 
     // 将认证码存入SESSION
-    session.setAttribute("validCode",sRand);
+        ShiroSessionUtils.setUserValiCode(sRand);
+    //session.setAttribute("validCode",sRand);
     // 图象生效
     g.dispose();
     // 输出图象到页面

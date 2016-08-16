@@ -49,9 +49,21 @@ public class User implements Serializable {
     private Role role;
 
 
+    /**
+     *   111 代表有WEB，APP，及微信
+     *   11  代表有APP，及微信
+     *   1   代表微信
+     *   10  代表APP
+     */
+
+    private int  user_type=111;
 
 
-    private int  user_type=100;
+    @Column(length = 50)
+    private  String user_custom;//业务扩展ID
+
+    @Column(length = 50)
+    private  String user_remark;//业务扩展ID
 
     private boolean locked=false;
 
@@ -166,8 +178,38 @@ public class User implements Serializable {
         this.role = role;
     }
 
+    public String getUser_custom() {
+        return user_custom;
+    }
+
+    public void setUser_custom(String user_custom) {
+        this.user_custom = user_custom;
+    }
+
+    public String getUser_remark() {
+        return user_remark;
+    }
+
+    public void setUser_remark(String user_remark) {
+        this.user_remark = user_remark;
+    }
+
+    public  boolean hasWebRole(){
+       return  this.user_type/100==1;
+    }
+
+    public  boolean hasAppRole(){
+        return  (this.user_type%100)/10 ==1;
+    }
+
+    public  boolean hasWeiXinRole(){
+        return  this.user_type%10 ==1;
+    }
+
     public static void main(String[] args) {
-        System.out.println(encryptPassWd("123","12519f95ddd340e27317a80ecaffcd2c"));
+       // System.out.println(encryptPassWd("123","12519f95ddd340e27317a80ecaffcd2c"));
+        System.out.println(101%100/10);
+
     }
 
 }

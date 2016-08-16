@@ -9,14 +9,14 @@ public class DateUtil {
 
      private static Map<String,SimpleDateFormat> formats=new HashMap<String,SimpleDateFormat>();
 
-    public   static SimpleDateFormat getSimpleDateFormat(String pattern){
+     public  static SimpleDateFormat getSimpleDateFormat(String pattern){
              if(formats.containsKey(pattern)){
                  return formats.get(pattern);
              }
             SimpleDateFormat format=new SimpleDateFormat(pattern);
             formats.put(pattern,format);
             return  format;
-    }
+     }
 
     public static String  getDate2FormatString(Date date,String pattern){
         SimpleDateFormat format=   getSimpleDateFormat(pattern);

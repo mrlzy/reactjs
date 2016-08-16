@@ -12,6 +12,7 @@
 
 
 	<import resource="classpath:/config/shiro/shiro-web.xml" />
+	<import resource="classpath:/config/ehcache/spring-cache.xml" />
 	<import resource="classpath:/config/db/db-beans.xml" />
 
 </beans>

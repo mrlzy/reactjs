@@ -26,7 +26,7 @@
         SECOND = 5,
         MILLISECOND = 6,
 
-        // internal storage for locale config files
+        // internal storage for locale client files
         locales = {},
 
         // extra moment internal properties (plugins register props here)
@@ -1282,7 +1282,7 @@
 
             // TODO: We need to take the current isoWeekYear, but that depends on
             // how we interpret now (local, utc, fixed offset). So create
-            // a now version of current config (take local/utc/offset flags, and
+            // a now version of current client (take local/utc/offset flags, and
             // create now).
             weekYear = dfl(w.GG, config._a[YEAR], weekOfYear(moment(), 1, 4).year);
             week = dfl(w.W, 1);

@@ -34,7 +34,7 @@
                  如果A与B用的是不同数据源...A方法和B方法必须在不同类中，否则Spring事务隔离级别会失效
      -->
 	<import resource="classpath:/config/db/datasource/local.xml" />
-	<!--<import resource="classpath:/config/db/datasource/remote.xml" />-->
+	<!--<import resource="classpath:/client/db/datasource/remote.xml" />-->
 
 	<context:component-scan base-package="com.mrlzy.shiro.service" />
 

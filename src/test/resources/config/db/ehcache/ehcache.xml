@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ehcache name="es">
+
+    <diskStore path="java.io.tmpdir"/>
+
+
+    <!--
+         maxElementsInMemory   内存最大存满500个
+         eternal   对象是否永久有效，一但设置了，timeout将不起作用
+         timeToIdleSeconds  eternal=false, 缓存创建以后，最后一次访问缓存的日期至失效之时的时间间隔300(秒)
+         timeToLiveSeconds  eternal=false, 缓存自创建日期起至失效时的间隔时间1200(秒)
+                                           则  当前值要满足 timeToIdleSeconds,timeToLiveSeconds 条件才能存活
+         overflowToDisk  当内存中对象数量达到maxElementsInMemory时，Ehcache将会对象写到磁盘中。
+         diskSpoolBufferSizeMB  这个参数设置DiskStore（磁盘缓存）的缓存区大小。默认是30MB。每个Cache都应该有自己的一个缓冲区
+         maxElementsOnDisk：硬盘最大缓存个数。
+         diskPersistent：是否重启tomcat还有缓存(必须用shutdown关闭)
+         diskExpiryThreadIntervalSeconds：磁盘失效线程运行时间间隔，默认是120秒。
+          memoryStoreEvictionPolicy：当达到maxElementsInMemory限制时，Ehcache将会根据指定的策略去清理内存。默认策略是LRU（最近最少使用）。你可以设置为FIFO（先进先出）或是LFU（较少使用）。
+         clearOnFlush：内存数量最大时是否清除。
+          maxEntriesLocalHeap 用来限制缓存所能使用的堆内存的最大字节数的，其单位可以是K、M或G
+
+     -->
+    <defaultCache
+            maxElementsInMemory="500"
+            eternal="false"
+            timeToIdleSeconds="300"
+            timeToLiveSeconds="1200"
+            overflowToDisk="true" />
+
+
+    <cache name="weiXinCache"
+           eternal="false"
+           maxEntriesLocalHeap="2000"
+           timeToIdleSeconds="300"
+           timeToLiveSeconds="0"
+           overflowToDisk="false">
+    </cache>
+
+
+</ehcache>
