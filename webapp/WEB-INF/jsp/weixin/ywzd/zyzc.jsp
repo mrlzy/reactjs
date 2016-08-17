@@ -40,7 +40,14 @@
 <%}else{%>
 <div>
     小页面，求转发
+
+
+
 </div>
+<%if(client.getOp_id().equals(request.getParameter("last_id"))){%>
+    <a href="#">有小惊喜请点击</a>
+
+<%}else{%>
 
         <script>
          wx.config({
@@ -140,6 +147,7 @@
 
 
         </script>
+    <%}%>
 
 <%}%>
 </body>

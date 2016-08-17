@@ -95,11 +95,11 @@ public class WeiXinMenuBuilder {
         list.add(m3);
 
         System.out.println(JsonUtil.obj2Json(new BaseDto("button",list)));
-        /*try {
+        try {
             new WeiXinAppClient().configMenu(list);
         } catch (WeiXinException e) {
             e.printStackTrace();
-        }*/
+        }
 
         // JlI5I5pBvtPBOH89SvgZb6d2W3Z9dWSR3-WMD1axZuYt_8riKnYnDINlnMHaRgLfeA9BYBKRoO169W2vULp7dmgaVgWtYVA75TZ7MGXyXTEQeHkMlbNRlCXrrI7xRcqOBLSbAJAVFM
 
