@@ -102,7 +102,7 @@
                 /weixin/error=anon
                 /weixin/selectCode=anon
                 /weixin/login=wx_authc
-                /weixin/**=wx_user,wx_client
+                /weixin/**=wx_client
                 /image=anon
                 /login=validCode,authc
                 /**=user,userManage

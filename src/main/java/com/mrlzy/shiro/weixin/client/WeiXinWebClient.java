@@ -50,9 +50,14 @@ public class WeiXinWebClient  extends WeiXinClient {
 
 
 
-    public  void setCode(String code) throws WeiXinException {
+    public  void setCode(String code) {
           this.code=code;
-          setTokenUseCode();
+          try{
+              setTokenUseCode();
+          }catch (WeiXinException e){
+              closeWeiXin=true;
+              closeMsg=e.getMessage();
+          }
     }
 
 
