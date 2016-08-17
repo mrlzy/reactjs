@@ -3,7 +3,10 @@ package com.mrlzy.shiro.web.mvc.weixin;
 import com.mrlzy.shiro.plugin.dto.BaseDto;
 import com.mrlzy.shiro.plugin.dto.Dto;
 import com.mrlzy.shiro.service.WeiXinService;
+import com.mrlzy.shiro.session.ShiroSessionUtils;
+import com.mrlzy.shiro.tool.RandomUtil;
 import com.mrlzy.shiro.weixin.WeiXinConfig;
+import com.mrlzy.shiro.weixin.client.WeiXinWebClient;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -37,6 +40,15 @@ public class WeixinYwzdController {
     public String zyzc() {
         return "weixin/ywzd/zyzc_WITH_jsp";
     }
+
+    @RequestMapping("/toGgl")
+    public String toGgl(){
+        WeiXinWebClient client = ShiroSessionUtils.getWeiXinWebClient();
+
+        int giftId = RandomUtil.getInstance().getGiftId(client.getOp_id());
+        return "weixin/ywzd/ggl_WITH_jsp";
+    }
+
 
     //------------公告通知------------//
     @RequestMapping("/ggtz")

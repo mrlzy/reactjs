@@ -45,7 +45,7 @@
 
 </div>
 <%if(client.getOp_id().equals(request.getParameter("last_id"))){%>
-    <a href="#">有小惊喜请点击</a>
+    <a href="toGgl">有小惊喜请点击</a>
 
 <%}else{%>
 
