@@ -46,4 +46,9 @@ public class RequestUtil {
 
 
 
+    public  static  boolean isAjaxRequest(HttpServletRequest request){
+        String requestType = request.getHeader("X-Requested-With");
+        return null != requestType && requestType.equals("XMLHttpRequest");
+    }
+
 }

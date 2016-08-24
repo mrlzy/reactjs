@@ -199,9 +199,6 @@
                        bootbox.alert(str);
 
                 }
-            },
-            error: function(response) {
-                //console.log(response);
             }
         });
     }

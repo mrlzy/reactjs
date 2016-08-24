@@ -15,10 +15,7 @@
         <context:include-filter type="annotation" expression="org.springframework.web.bind.annotation.ControllerAdvice"/>
     </context:component-scan>
 
-  <!-- <aop:client proxy-target-class="true"></aop:client>
-  <bean class="org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor">
-        <property name="securityManager" ref="securityManager"/>
-    </bean>-->
+
 
     <mvc:annotation-driven/>
     <mvc:view-controller path="/" view-name="index"/>
@@ -70,21 +67,7 @@
     </bean>
 
 
-
-
     <mvc:resources mapping="/assets/**" location="/assets/" cache-period="31556926"/>
-
-
-
-
-
-
-    <!-- 控制器异常处理 -->
-   <!-- <bean id="exceptionHandlerExceptionResolver" class="org.springframework.web.servlet.mvc.method.annotation.ExceptionHandlerExceptionResolver">
-    </bean>-->
-<!--
-    <bean class="com.github.zhangkaitao.shiro.chapter12.web.exception.DefaultExceptionHandler"/>
--->
 
 
 </beans>

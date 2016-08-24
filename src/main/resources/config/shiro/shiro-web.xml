@@ -61,11 +61,11 @@
         <property name="loginUrl" value="/weixin/login"/>
     </bean>
 
-    <bean id="weixinUserClientFilter" class="com.mrlzy.shiro.filter.WeiXinUserManageFilter">
+    <bean id="weixinClientFilter" class="com.mrlzy.shiro.filter.WeiXinClientFilter">
         <property name="loginUrl" value="/weixin/login"/>
     </bean>
 
-    <bean id="weixinUserManageFilter" class="com.mrlzy.shiro.filter.UserManageFilter">
+    <bean id="weixinUserFilter" class="com.mrlzy.shiro.filter.UserFilter">
         <property name="loginUrl" value="/weixin/login"/>
     </bean>
 
@@ -73,7 +73,7 @@
         <property name="loginUrl" value="/login"/>
     </bean>
 
-    <bean id="userManageFilter" class="com.mrlzy.shiro.filter.UserManageFilter">
+    <bean id="userFilter" class="com.mrlzy.shiro.filter.UserFilter">
         <property name="loginUrl" value="/login"/>
     </bean>
 
@@ -87,11 +87,11 @@
        <property name="filters">
            <util:map>
                <entry key="wx_authc" value-ref="weixinFormAuthenticationFilter"/>
-               <entry key="wx_user" value-ref="weixinUserManageFilter"/>
-               <entry key="wx_client" value-ref="weixinUserClientFilter"/>
+               <entry key="wx_user" value-ref="weixinUserFilter"/>
+               <entry key="wx_client" value-ref="weixinClientFilter"/>
                <entry key="authc" value-ref="formAuthenticationFilter"/>
                <entry key="validCode" value-ref="validCodeAuthenticationFilter"/>
-               <entry key="userManage" value-ref="userManageFilter"/>
+               <entry key="user" value-ref="userFilter"/>
            </util:map>
        </property>
        <property name="filterChainDefinitions">
@@ -105,7 +105,7 @@
                 /weixin/**=wx_client
                 /image=anon
                 /login=validCode,authc
-                /**=user,userManage
+                /**=user
             </value>
         </property>
     </bean>

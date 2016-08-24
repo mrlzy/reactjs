@@ -13,9 +13,9 @@ import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-public class WeiXinUserManageFilter extends AccessControlFilter {
+public class WeiXinClientFilter extends AccessControlFilter {
 
-    private static Log log = LogFactory.getLog(WeiXinUserManageFilter.class);
+    private static Log log = LogFactory.getLog(WeiXinClientFilter.class);
 
     @Override
     public boolean onPreHandle(ServletRequest request, ServletResponse response, Object mappedValue) throws Exception {

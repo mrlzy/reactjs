@@ -76,9 +76,9 @@ public class WeiXinAppClient extends WeiXinClient {
     }
 
 
-
-
-
+    public static void main(String[] args) throws  Exception {
+        System.out.println(new WeiXinAppClient().getToken());
+    }
 
 
 

@@ -123,7 +123,34 @@
 <script src="assets/ace/js/ace/ace.widget-on-reload.js"></script>
 <script src="assets/ace/js/ace/ace.searchbox-autocomplete.js"></script>
 
+<script type="text/javascript">
+    $(function(){
+        // 设置jQuery Ajax全局的参数
+        $.ajaxSetup({
+            type: "POST",
+            async: false,
+            complete: function(jqXHR, textstatu){
+                switch (jqXHR.status){
+                    case(401):
+                        bootbox.alert("你的会话已失效,请重新登录!!",function () {
+                            setTimeout(function() {
+                                window.location.reload();
+                            }, 800);
 
+                        });
+                        break;
+                    default:
+                        //成功的
+                       // alert("未知错误");
+                }
+            }
+        });
+    });
+
+
+
+
+</script>
 
 
 </body>
