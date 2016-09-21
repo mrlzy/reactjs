@@ -16,4 +16,6 @@ public class Constants {
     public static final String DEFAULT_VALIDCODE_ATTRIBUTE = "validCode";
     public static final String DEFAULT_ERROR_KEY_ATTRIBUTE_MSG = "error";
 
+
+
 }

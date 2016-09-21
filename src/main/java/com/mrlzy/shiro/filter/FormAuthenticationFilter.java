@@ -1,16 +1,16 @@
 package com.mrlzy.shiro.filter;
 
 
+import com.mrlzy.shiro.app.Constants;
 import org.apache.shiro.authc.AuthenticationException;
 
 import javax.servlet.ServletRequest;
 
 public class FormAuthenticationFilter extends org.apache.shiro.web.filter.authc.FormAuthenticationFilter {
 
-    public static final String DEFAULT_ERROR_KEY_ATTRIBUTE_MSG = "error";
 
 
-    private String failureMsgAttribute = DEFAULT_ERROR_KEY_ATTRIBUTE_MSG;
+    private String failureMsgAttribute = Constants.DEFAULT_ERROR_KEY_ATTRIBUTE_MSG;
 
 
 

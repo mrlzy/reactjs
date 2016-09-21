@@ -8,8 +8,10 @@ import com.mrlzy.shiro.weixin.builder.WeiXinClientBuilder;
 import com.mrlzy.shiro.weixin.client.WeiXinAppClient;
 import com.mrlzy.shiro.weixin.client.WeiXinWebClient;
 import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.session.Session;
 import org.apache.shiro.subject.Subject;
+import org.springframework.util.StringUtils;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -18,6 +20,24 @@ public class ShiroSessionUtils {
 
     public static  Subject getSubject(){
         return  SecurityUtils.getSubject();
+    }
+
+
+    public static boolean login(HttpServletRequest request ) {
+        Subject subject=getSubject();
+        if(subject.isAuthenticated()) return true;
+        if("get".equalsIgnoreCase(request.getMethod())) return  false;
+
+        String username = request.getParameter("username");
+        String password = request.getParameter("password");
+        UsernamePasswordToken token = new UsernamePasswordToken(username, password);
+        try {
+            subject.login(token);
+            return true;
+        } catch (Exception e) {
+            request.setAttribute(Constants.DEFAULT_ERROR_KEY_ATTRIBUTE_MSG,e.getMessage());
+            return false;
+        }
     }
 
     public static Session getSession(){

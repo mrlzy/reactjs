@@ -36,5 +36,20 @@
            overflowToDisk="false">
     </cache>
 
+    <cache name="authCodeCache"
+           eternal="false"
+           timeToIdleSeconds="0"
+           timeToLiveSeconds="300"
+           maxEntriesLocalHeap="2000"
+           overflowToDisk="false">
+    </cache>
+
+    <cache name="tokenCache"
+           eternal="false"
+           timeToIdleSeconds="0"
+           timeToLiveSeconds="7200"
+           maxEntriesLocalHeap="2000"
+           overflowToDisk="false">
+    </cache>
 
 </ehcache>

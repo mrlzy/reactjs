@@ -104,6 +104,7 @@
                 /weixin/login=wx_authc
                 /weixin/**=wx_client
                 /image=anon
+                /oauth2/authorize=anon
                 /login=validCode,authc
                 /**=user
             </value>
